@@ -5,8 +5,9 @@ for all but exactly one 0 ≤ i < k ([erdosproblems.com/1063](https://www.erdosp
 OEIS [A389360](https://oeis.org/A389360), Guy B31). Erdős and Selfridge observed that at least one
 of n, n − 1, …, n − k + 1 always fails, so n_k asks when exactly one does.
 
-This repository proves two results in Lean 4 with Mathlib, packaged for
-[Palomar](https://palomar-registry.org/). The definition of n_k is copied verbatim from
+This repository proves two results in Lean 4 with Mathlib. It is registered on Palomar as
+[PALOMAR-2026-10-23-000014](https://palomar-registry.org/entry.html?id=PALOMAR-2026-10-23-000014&version=1)
+(version 1 = commit `ba104cbcf0bb7c555a8b2f0d58018989a08c638e`). The definition of n_k is copied verbatim from
 [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/ac02cd5f50407650b37344083b7c1f0f4ed1f96c/FormalConjectures/ErdosProblems/1063.lean).
 
 | Lean name | Statement |
