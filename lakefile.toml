@@ -1,0 +1,27 @@
+name = "Erdos1063"
+version = "0.1.0"
+defaultTargets = ["Erdos1063", "Challenge", "Solution", "AxiomAudit"]
+
+[leanOptions]
+relaxedAutoImplicit = false
+autoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0-rc1"
+
+[[lean_lib]]
+name = "Erdos1063"
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]
+
+[[lean_lib]]
+name = "AxiomAudit"
+roots = ["AxiomAudit"]

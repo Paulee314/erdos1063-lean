@@ -1,0 +1,160 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Erdős Problem 1063: a lower bound for n_k and the structure of the exceptional index"
+  description: >-
+    For k ≥ 2 let n_k be the least n ≥ 2k such that n − i divides the binomial coefficient
+    C(n, k) for all but exactly one 0 ≤ i < k (Erdős Problem 1063; Erdős and Selfridge 1983;
+    OEIS A389360; Guy's Unsolved Problems in Number Theory, B31). Using the definition of n_k
+    from google-deepmind/formal-conjectures verbatim, this project proves two results in Lean 4
+    with Mathlib. (1) For every k ≥ 2, n_k ≥ W'_k = ∏_{p^a ∥ k} p^(a + ⌊log_p(k − 1)⌋); the
+    bound is attained in the sense that n_k − i₀ = W'_k for k = 4, 6, 14. (2) If n ≥ 2k, e < k,
+    and every n − i with 0 ≤ i < k, i ≠ e, divides C(n, k), then e = n mod k and
+    D(k, e) = ∏_{p^a ∥ k} p^(a + v_p(C(k − 1, e)) + ⌊log_p max(e, k − 1 − e)⌋) divides n − e.
+    Result (2) was proved informally by the user rickyc in the erdosproblems.com discussion
+    thread for the problem. It is the structural input of the exhaustive searches that extend
+    the OEIS table (by jbell31 for 60 ≤ k ≤ 75, and by the author for k up to 140): an admissible
+    n with exceptional index e must lie in the residue class e modulo D(k, e). This
+    formalization makes the minimality of those computed values depend only on verified
+    mathematics and on the search code; jbell31 had noted in the thread that a Lean proof of this
+    divisibility would close that gap. formal-conjectures records upper bounds and small values
+    of n_k but no general lower bound. The development also proves the Erdős–Selfridge
+    observation and that Cambie's number k · lcm(1, …, k − 1) is admissible, so the lower bound
+    holds for every k ≥ 2 without further assumptions.
+  authors:
+    - "Paul Lee"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Paul Lee"
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11B65", "11A05"]
+
+sources:
+  - title: "Proof of the sharper exponent v_p(n − e) ≥ v_p(k) + v_p(C(k − 1, e)) + ⌊log_p max(e, k − 1 − e)⌋ for p | k, in the erdosproblems.com discussion thread for Problem 1063 (10 July 2026)"
+    authors:
+      - "rickyc (erdosproblems.com user)"
+    type: "web post"
+    location: "https://www.erdosproblems.com/forum/thread/1063"
+    relationship: "formalizes"
+    note: >-
+      Result (2) is this statement for all primes p dividing k at once (product form), together
+      with e = n mod k. The Lean proof was written for this project; it was not transcribed from
+      the forum post. The same thread contains rickyc's earlier k/2 version of the lower bound
+      (26 June 2026) and the k − 1 version, which is result (1).
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "The density of admissible n in Erdős–Selfridge problem 1063, with a growth conjecture for n_k (preprint)"
+    authors:
+      - "Paul Lee"
+    type: "preprint"
+    id: "https://github.com/Paulee314/erdos1063/blob/6b4f9666c8834395ef1669634536350223fb270f/paper/erdos1063.pdf"
+    location: "https://github.com/Paulee314/erdos1063"
+    relationship: "formalizes"
+    note: >-
+      Result (1) is the preprint's Theorem 1.2 (via its Proposition 3.1, an independent proof
+      of the k − 1 bound with the equality cases k = 4, 6, 14). The preprint has not been peer
+      reviewed.
+    license: "unknown"
+    author_endorsement: "participated"
+  - title: "Problem 6447"
+    authors:
+      - "Paul Erdős"
+      - "John L. Selfridge"
+    type: "article"
+    location: "Amer. Math. Monthly 90 (1983), 710"
+    relationship: "background"
+    note: "Origin of the problem; see also https://www.erdosproblems.com/1063 and OEIS A389360."
+  - title: "Cambie's bound n_k ≤ k · lcm(1, …, k − 1), as recorded on the problem page"
+    authors:
+      - "Stijn Cambie"
+    type: "web post"
+    location: "https://www.erdosproblems.com/1063"
+    relationship: "background"
+    note: >-
+      The development re-proves that Cambie's number is admissible (cambie_mem,
+      cambie_upper_bound), only to show that the set defining n_k is nonempty for k ≥ 3.
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/ac02cd5f50407650b37344083b7c1f0f4ed1f96c/FormalConjectures/ErdosProblems/1063.lean"
+    relationship: "builds-on"
+    note: >-
+      The definition of n_k is copied verbatim from this file, and the two compared statements
+      are the ones proposed for it in google-deepmind/formal-conjectures pull request #7552.
+      The file's upper bounds were formalized by the LEAP agent (Kung et al., arXiv:2606.03303).
+  - id: "https://github.com/Paulee314/erdos1063/blob/6b4f9666c8834395ef1669634536350223fb270f/lean/Erdos1063Lower.lean"
+    relationship: "supersedes"
+    note: >-
+      The same proofs by the same author in a single non-module file. This repository
+      repackages them for Comparator.
+
+status:
+  scope: >-
+    Both compared theorems are proved in full, for every k ≥ 2 and every n, e satisfying the
+    hypotheses. Not formalized: the rest of the cited preprint (the exact density of admissible
+    n, its asymptotics, the growth conjecture, and the computed values of n_k).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Opus 5.5 (Anthropic)"]
+      framework: "Claude agent sessions (claude.ai) with a shell on the author's computer"
+      tool_setup: >-
+        AI-generated: the agent wrote all Lean code, including the statements, compiled it
+        against Lean v4.36.0-rc1 and Mathlib, and iterated on compiler errors. The author chose
+        what to formalize, directed the work, and published it.
+      cost:
+        wall_time: "about two days of agent sessions in October 2026"
+        spend_usd: "subscription-based"
+        hardware: "Apple Mac Studio for the Lean builds; cloud container for drafting"
+      prompting_notes: "n/a"
+  spend_usd: "subscription-based"
+  notes: >-
+    The author is not a professional mathematician and did not write the Lean code by hand.
+    The informal mathematics in the cited preprint was also produced with Claude at the
+    author's direction.
+
+fidelity:
+  divergences: >-
+    None known. The definition of n_k is identical to formal-conjectures'. Result (2) assumes
+    only that the other k − 1 elements divide C(n, k), which is weaker than admissibility, so
+    it applies to every admissible n.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Gemini 4 Argon (Google), informal mathematics"
+    - "a Meta AI model, informal mathematics"
+    - "Claude Fable 5.1 (Anthropic), informal mathematics and independent search code"
+  notes: >-
+    The informal proofs (preprint Proposition 3.1 and Lemma 4.1) were refereed by the AI
+    systems listed, each working from the preprint; none of them reviewed the Lean files. The
+    Lean statements were audited against the informal statements by the formalizing agent, and
+    built inside formal-conjectures for pull request #7552. The fully elaborated types of both
+    compared theorems and of n were checked to be identical between Challenge.lean and
+    Solution.lean (pp.all output). No human expert has reviewed this work.
+
+alignment:
+  namespace: "Erdos1063"
+  statements:
+    - source: "Preprint Theorem 1.2; the k − 1 lower bound in the discussion thread"
+      lean: "Erdos1063.erdos_1063.variants.lower_bound"
+      module: "Solution"
+      status: "proved"
+      note: "n_k ≥ ∏_{p^a ∥ k} p^(a + ⌊log_p(k − 1)⌋) for k ≥ 2."
+    - source: "rickyc's sharper exponent (discussion thread, 10 July 2026); preprint, end of Section 3"
+      lean: "Erdos1063.erdos_1063.variants.exception_dvd"
+      module: "Solution"
+      status: "proved"
+      note: "e = n mod k and D(k, e) divides n − e, assuming only that the other k − 1 elements divide C(n, k)."
+
+acknowledgements: >-
+  Mathlib; google-deepmind/formal-conjectures for the definition of n_k; the erdosproblems.com
+  discussion thread for Problem 1063, in particular rickyc (the sharper exponent) and jbell31
+  (who identified the need for this formalization).
